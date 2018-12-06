@@ -35,13 +35,12 @@ async function processTheResults (args, pageCount) {
         arrayOfPromises.push(getPage(searchParams, pageNumberCounter));
         pageNumberCounter++;
     }
-    const arrayofPages = await Promise.all(arrayOfPromises).then(body => {
-        let characters = body.reduce((prev, current) => {
-            return { results: (prev).concat(current) };
-        });
-        return characters;
+    const arrayofPages = await Promise.all(arrayOfPromises).then(resultArray => {
+
+        return resultArray.reduce((a, b) => [...a, ...b]);
+    }).then(results => {
+        fs.writeFileSync('Results.json', JSON.stringify(results, null, '\t'));
     });
-    writeDataToFile(arrayofPages, args.outputFormat);
 }
 
 function getPage (searchParams, pageNumberCounter) {
@@ -51,21 +50,18 @@ function getPage (searchParams, pageNumberCounter) {
             uri: `${uri}?page=${pageNumberCounter}`,
             json: isResultAJsonOjbect
         }).then(requestResult => {
-            resolve(sortResults(requestResult, searchParams));
+            const sortedResults = sortResults(requestResult, searchParams);
+            resolve(sortedResults);
         }).catch(err => {
             console.log(err.message);
         });
     });
 }
 
-function writeDataToFile (results) {
-        fs.writeFileSync('Results.json', JSON.stringify(results, null, '\t'));
-}
-
 function sortParams (consoleArgs) {
     const searchParams = {
-        name: consoleArgs.f,
-        id: consoleArgs.f
+        name: consoleArgs.name,
+        id: consoleArgs.id
     };
     Object.keys(searchParams
     ).forEach(key => {
@@ -87,13 +83,4 @@ function sortResults (requestResult, searchParams) {
         return res;
     });
     return results;
-}
-
-function sumEs6Style (prom) {
-    let res = prom.then(body => {
-        let characters = body.reduce((prev, current) => {
-            return { results: prev.results.concat(current.results) };
-        });
-    });
-    resolve(res);
 }
