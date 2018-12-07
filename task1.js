@@ -27,7 +27,7 @@ todo.command('Request', 'https://rickandmortyapi.com/api/character/" ', function
     }).help()
     .argv;
 
-async function processTheResults (args, pageCount) {
+async function processTheResults(args, pageCount) {
     const searchParams = sortParams(args);
     let arrayOfPromises = [];
     let pageNumberCounter = 1;
@@ -36,14 +36,13 @@ async function processTheResults (args, pageCount) {
         pageNumberCounter++;
     }
     const arrayofPages = await Promise.all(arrayOfPromises).then(resultArray => {
-
         return resultArray.reduce((a, b) => [...a, ...b]);
     }).then(results => {
         fs.writeFileSync('Results.json', JSON.stringify(results, null, '\t'));
     });
 }
 
-function getPage (searchParams, pageNumberCounter) {
+function getPage(searchParams, pageNumberCounter) {
     return new Promise(resolve => {
         rp({
             method: 'GET',
@@ -58,7 +57,7 @@ function getPage (searchParams, pageNumberCounter) {
     });
 }
 
-function sortParams (consoleArgs) {
+function sortParams(consoleArgs) {
     const searchParams = {
         name: consoleArgs.name,
         id: consoleArgs.id
@@ -69,10 +68,10 @@ function sortParams (consoleArgs) {
             delete searchParams[key];
         }
     });
-   return searchParams;
+    return searchParams;
 }
 
-function sortResults (requestResult, searchParams) {
+function sortResults(requestResult, searchParams) {
     const results = requestResult.results.filter(characterObj => {
         let res = true;
         for (let parameter in searchParams) {
