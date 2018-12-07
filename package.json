@@ -1,20 +1,8 @@
 {
   "name": "jsu3t2",
   "version": "1.0.0",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/KrukAliaksandr/JSU3T2.git"
-  },
-  "author": "Aliaksandr_Kruk",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/KrukAliaksandr/JSU3T2/issues"
-  },
-  "homepage": "https://github.com/KrukAliaksandr/JSU3T2#readme",
+  "description": "",
+  "main": "task1.js",
   "dependencies": {
     "request": "^2.88.0",
     "request-promise-native": "^1.0.5",
@@ -28,5 +16,17 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0"
   },
-  "description": ""
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KrukAliaksandr/JSU3T2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KrukAliaksandr/JSU3T2/issues"
+  },
+  "homepage": "https://github.com/KrukAliaksandr/JSU3T2#readme"
 }
